@@ -1,0 +1,22 @@
+.nav {
+  background-color: lightblue;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: baseline;
+  margin-left: 3%;
+  width: 15%;
+  justify-content: space-between;
+}
+
+.nav-right {
+  display: flex;
+  margin-right: 5%;
+  width: 15%;
+  justify-content: space-between;
+}
