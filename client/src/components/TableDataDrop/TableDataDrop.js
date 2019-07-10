@@ -3,17 +3,11 @@ import axios from 'axios';
 
 import './TableDataDrop.css';
 
-function reducer(state, action) {
-  switch(action.type) {
-    case 'Name':
-      return {...state, Name: !state.Name}
-  }
-}
-
 const TableDataDrop = props => {
   // tableInfo hook.  User will copy paste table draw from pokernews here
   const [tableInfo, setTableInfo] = useState('0');
 
+  
   // options for how much data to grab, toggled by checkboxes in render
   const [options, setOptions] = useState({
     name: true,
@@ -24,6 +18,7 @@ const TableDataDrop = props => {
     buyin: true
   })
   
+
   // function to toggle options state called by checkbox inputs
   const toggleCheckbox = e => {
     setOptions({
@@ -63,7 +58,6 @@ const TableDataDrop = props => {
       />
       <div className="options">
         <h3>What data do you want on your opponents?</h3>
-        {/* fix other 2 lines to be like this one */} 
         <div className="sub-options">
           <div className="left-option">
             <input onClick={toggleCheckbox} type="checkbox" name="name" defaultChecked/><span>Name</span>
