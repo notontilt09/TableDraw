@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {
@@ -17,5 +18,13 @@
   "bugs": {
     "url": "https://github.com/notontilt09/TableDraw/issues"
   },
-  "homepage": "https://github.com/notontilt09/TableDraw#readme"
+  "homepage": "https://github.com/notontilt09/TableDraw#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
