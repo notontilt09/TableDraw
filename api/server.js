@@ -13,10 +13,10 @@ server.get('/', (req, res) => {
 })
 
 server.post('/api/table', async (req, res) => {
-  const { tableInfo, selectedOptions} = req.body;
+  const { tableInfo, selectedOptions } = req.body;
   // testing out passing data from front end to server...
-  console.log(tableInfo);
-  console.log(selectedOptions);
+  console.log('info', tableInfo);
+  console.log('options', selectedOptions);
   res.status(200).json({tableInfo, selectedOptions});
 })
 

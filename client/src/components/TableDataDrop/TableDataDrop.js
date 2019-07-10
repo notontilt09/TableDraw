@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import axios from 'axios';
 
 import './TableDataDrop.css';
+
+function reducer(state, action) {
+  switch(action.type) {
+    case 'Name':
+      return {...state, Name: !state.Name}
+  }
+}
 
 const TableDataDrop = props => {
   // tableInfo hook.  User will copy paste table draw from pokernews here
@@ -9,12 +16,12 @@ const TableDataDrop = props => {
 
   // options for how much data to grab, toggled by checkboxes in render
   const [options, setOptions] = useState({
-    Name: true,
-    Chips: true,
-    Nationality: true,
-    Earnings: true,
-    Largest: true,
-    Buyin: true
+    name: true,
+    chips: true,
+    nationality: true,
+    earnings: true,
+    largest: true,
+    buyin: true
   })
   
   // function to toggle options state called by checkbox inputs
@@ -41,8 +48,6 @@ const TableDataDrop = props => {
       }
     }
 
-    console.log('so', selectedOptions)
-
     axios.post('http://localhost:5000/api/table', {tableInfo, selectedOptions})
       .then(res => console.log(res))
       .catch(err => console.log(err))
@@ -61,26 +66,26 @@ const TableDataDrop = props => {
         {/* fix other 2 lines to be like this one */} 
         <div className="sub-options">
           <div className="left-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Name" defaultChecked/><span>Name</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="name" defaultChecked/><span>Name</span>
           </div>
           <div className="right-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Chips" defaultChecked/><span>Chip Count</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="chips" defaultChecked/><span>Chip Count</span>
           </div>
         </div>
         <div className="sub-options">
           <div className="left-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Nationality" defaultChecked/><span>Nationality</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="nationality" defaultChecked/><span>Nationality</span>
           </div>
           <div className="right-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Earnings" defaultChecked/><span>Earnings</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="earnings" defaultChecked/><span>Earnings</span>
           </div>
         </div>
         <div className="sub-options">
           <div className="left-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Name" defaultChecked/><span>Largest Cash</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="largest" defaultChecked/><span>Largest Cash</span>
           </div>
           <div className="right-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Chips" defaultChecked/><span>Average Buyin</span>
+            <input onClick={toggleCheckbox} type="checkbox" name="buyin" defaultChecked/><span>Average Buyin</span>
           </div>
         </div>
       </div>
