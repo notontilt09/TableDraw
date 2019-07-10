@@ -32,7 +32,18 @@ const TableDataDrop = props => {
 
   // function to send post request to backend with tableInfo and options
   const handleSubmit = () => {
-    axios.post('http://localhost:5000/api/table', {tableInfo, options})
+    const selectedOptions = {}
+    const keys = Object.keys(options);
+    
+    for (const key of keys) {
+      if (options[key]) {
+        selectedOptions[key] = true
+      }
+    }
+
+    console.log('so', selectedOptions)
+
+    axios.post('http://localhost:5000/api/table', {tableInfo, selectedOptions})
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
@@ -50,19 +61,27 @@ const TableDataDrop = props => {
         {/* fix other 2 lines to be like this one */} 
         <div className="sub-options">
           <div className="left-option">
-            <input onClick={toggleCheckbox} type="checkbox" name="Name" defaultChecked/>Name
+            <input onClick={toggleCheckbox} type="checkbox" name="Name" defaultChecked/><span>Name</span>
           </div>
           <div className="right-option">
             <input onClick={toggleCheckbox} type="checkbox" name="Chips" defaultChecked/><span>Chip Count</span>
           </div>
         </div>
         <div className="sub-options">
-          <input onClick={toggleCheckbox} type="checkbox" name="Nationality" defaultChecked/>Nationality
-          <input onClick={toggleCheckbox} type="checkbox" name="Earnings" defaultChecked/>Total Live Earnings
+          <div className="left-option">
+            <input onClick={toggleCheckbox} type="checkbox" name="Nationality" defaultChecked/><span>Nationality</span>
+          </div>
+          <div className="right-option">
+            <input onClick={toggleCheckbox} type="checkbox" name="Earnings" defaultChecked/><span>Earnings</span>
+          </div>
         </div>
         <div className="sub-options">
-          <input onClick={toggleCheckbox} type="checkbox" name="Largest" defaultChecked/>Largest Cash
-          <input onClick={toggleCheckbox} type="checkbox" name="Buyin" defaultChecked/>Average Buyin
+          <div className="left-option">
+            <input onClick={toggleCheckbox} type="checkbox" name="Name" defaultChecked/><span>Largest Cash</span>
+          </div>
+          <div className="right-option">
+            <input onClick={toggleCheckbox} type="checkbox" name="Chips" defaultChecked/><span>Average Buyin</span>
+          </div>
         </div>
       </div>
       <button

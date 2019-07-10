@@ -29,21 +29,21 @@
 .sub-options {
   width: 50%;
   display: flex;
-  margin: 0 auto;
+  margin: 10px auto;
   justify-content: space-between;
 }
 
 .sub-options input {
-  margin-right: 1%;
+  margin-right: 3%;
 }
 
 .left-option {
   display: flex;
-  width: 25%;
+  width: 50%;
 }
 
 .right-option {
   display: flex;
-  width: 25%;
+  width: 50%;
 }
 

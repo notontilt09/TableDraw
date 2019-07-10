@@ -13,11 +13,11 @@ server.get('/', (req, res) => {
 })
 
 server.post('/api/table', async (req, res) => {
-  const { tableInfo, options} = req.body;
+  const { tableInfo, selectedOptions} = req.body;
   // testing out passing data from front end to server...
   console.log(tableInfo);
-  console.log(options);
-  res.status(200).json({tableInfo, options});
+  console.log(selectedOptions);
+  res.status(200).json({tableInfo, selectedOptions});
 })
 
 module.exports = server;
