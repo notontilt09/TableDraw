@@ -17,4 +17,33 @@
 
 .submit-btn {
   margin-top: 10px;
+  width: 25%;
+  margin: 20px auto;
 }
+
+.options h3 {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.sub-options {
+  width: 50%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.sub-options input {
+  margin-right: 1%;
+}
+
+.left-option {
+  display: flex;
+  width: 25%;
+}
+
+.right-option {
+  display: flex;
+  width: 25%;
+}
+
