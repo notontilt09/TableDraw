@@ -5,7 +5,7 @@ import './TableDataDrop.css';
 
 const TableDataDrop = props => {
   // tableInfo hook.  User will copy paste table draw from pokernews here
-  const [tableInfo, setTableInfo] = useState('0');
+  const [tableInfo, setTableInfo] = useState(null);
 
   
   // options for how much data to grab, toggled by checkboxes in render
@@ -52,7 +52,7 @@ const TableDataDrop = props => {
     <div className="data-drop">
       <textarea 
         className="raw-data"
-        placeholder="Paste Table Draw Here..."
+        placeholder="Paste Table Draw Here.   Seat # |  Name  |  Chips"
         value={tableInfo}
         onChange={handleChange}
       />
