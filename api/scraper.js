@@ -7,6 +7,8 @@ const findPlayer = async name => {
   await driver.get('https://www.thehendonmob.com/');
   await driver.findElement(By.className('header-search__field-input'))
         .sendKeys(`${name}`, Key.ENTER);
+  await driver.findElement(By.className('name'))
+        .click();
 }
 
 module.exports = { findPlayer };
