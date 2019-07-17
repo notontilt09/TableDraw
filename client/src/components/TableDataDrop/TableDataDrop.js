@@ -4,59 +4,60 @@ import axios from 'axios';
 import './TableDataDrop.css';
 
 const TableDataDrop = props => {
-  // tableInfo hook.  User will copy paste table draw from pokernews here
-  const [tableInfo, setTableInfo] = useState([
+  const initialTableInfo = [
     {
       seat: 1,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 2,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 3,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 4,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 5,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 6,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 7,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 8,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 9,
       name: '',
-      chips: null,
+      chips: 0,
     },
     {
       seat: 10,
       name: '',
-      chips: null,
+      chips: 0,
     }
-  ]);
+  ]
+  // tableInfo hook.  User will copy paste table draw from pokernews here
+  const [tableInfo, setTableInfo] = useState(initialTableInfo);
 
   
   // options for how much data to grab, toggled by checkboxes in render
@@ -80,12 +81,35 @@ const TableDataDrop = props => {
 
   // function to update tableInfo state after raw data pasted in
   const handleNameChange = (e, seat) => {
-    setTableInfo()
+    setTableInfo(tableInfo.map(player => {
+      if (player.seat === seat) {
+        return {
+          ...player,
+          name: e.target.value
+        }
+      } else {
+        return player
+      }
+    } ))
   }
 
   const handleChipsChange = (e, seat) => {
-
+    setTableInfo(tableInfo.map(player => {
+      if (player.seat === seat) {
+        return {
+          ...player,
+          chips: e.target.value
+        }
+      } else {
+        return player
+      }
+    }))
   }
+
+  const clearInput = () => {
+    setTableInfo(initialTableInfo)
+  }
+  
 
   // function to send post request to backend with tableInfo and options
   const handleSubmit = () => {
@@ -113,7 +137,7 @@ const TableDataDrop = props => {
           <th>Chips</th>
         </tr>
         {tableInfo.map(player => (
-          <tr>
+          <tr key={player.seat}>
             <td>{player.seat}</td>
             <td>
               <input 
@@ -137,6 +161,7 @@ const TableDataDrop = props => {
         ))}
         </tbody>
       </table>
+      <button className="clear-input" onClick={clearInput}>Clear All</button>
       <div className="options">
         <h3>What data do you want on your opponents?</h3>
         <div className="sub-options">

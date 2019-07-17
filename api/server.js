@@ -15,12 +15,12 @@ server.get('/', (req, res) => {
 
 server.post('/api/table', async (req, res) => {
   const { tableInfo, selectedOptions } = req.body;
-  // testing out passing data from front end to server...
+
   console.log('info\n', tableInfo);
-  const playerArray = tableInfo.trim().split('\n');
-  for (player of playerArray) {
-    const infoArray = player.split('\t');
-    await scraper.findPlayer(`${infoArray[1]}`);
+  // const playerArray = tableInfo.trim().split('\n');
+  for (player of tableInfo) {
+    const name = player.name;
+    await scraper.findPlayer(name);
   }
   console.log('options\n', selectedOptions);
   res.status(200).json({tableInfo, selectedOptions});
