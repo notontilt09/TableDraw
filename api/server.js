@@ -17,11 +17,11 @@ server.post('/api/table', async (req, res) => {
   const { tableInfo, selectedOptions } = req.body;
 
   console.log('info\n', tableInfo);
-  // const playerArray = tableInfo.trim().split('\n');
   for (player of tableInfo) {
     const name = player.name;
+    const chips = player.chips;
     if (name) {
-      await scraper.findPlayer(name);
+      await scraper.getPlayerInfo(name, chips, selectedOptions);
     }
   }
   // console.log('options\n', selectedOptions);

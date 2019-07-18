@@ -3,7 +3,17 @@ require('chromedriver');
 
 const driver = new Builder().forBrowser('chrome').build();
 
-const findPlayer = async name => {
+const getPlayerInfo = async (name, chips, options) => {
+  const result = {};
+  
+  for (option in options) {
+    result[option] = ''
+  }
+
+  result['name'] = name;
+  result['chips'] = chips;
+
+
   await driver.get('https://www.thehendonmob.com/');
   await driver.findElement(By.className('header-search__field-input'))
         .sendKeys(`${name}`, Key.ENTER);
@@ -14,13 +24,27 @@ const findPlayer = async name => {
   }
   else {
     console.log(`found name link for ${name}`);
-    names[0].findElement(By.linkText(`${name}`)).click();
-    const totalCashes = await driver.wait(until.elementLocated(By.className('player-profile-info-total-live__value'))).getText()
-    console.log(totalCashes);
+    await names[0].findElement(By.linkText(`${name}`)).click();
+    if ('earnings' in result) {
+      const totalCashes = await driver.wait(until.elementLocated(By.className('player-profile-info-total-live__value'))).getText();
+      result['earnings'] = totalCashes;
+    }
+    if ('largest' in result) {
+      const largestCash = await driver.wait(until.elementLocated(By.className('player-profile-info-fact__value'))).getText();
+      result['largest'] = largestCash;
+    }
+    if ('nationality' in result) {
+      const countrySpan = await driver.wait(until.elementLocated(By.className('player-profile-name__flag')));
+      const country = await countrySpan.findElement(By.className('flag-small')).getText();
+      result['nationality'] = country;
+    }
+    if ('buyin' in result) {
+      
+    }
   }
-  console.log(`finished grabbing data for ${name}`)    
+  console.log(`finished grabbing data for ${name}\n`, result)    
 }
 
 
 
-module.exports = { findPlayer };
+module.exports = { getPlayerInfo };
