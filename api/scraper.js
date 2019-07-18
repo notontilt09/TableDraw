@@ -39,6 +39,7 @@ const getPlayerInfo = async (name, chips, options) => {
       result['nationality'] = country;
     }
     if ('buyin' in result) {
+      let buyins = [];
       // grab the list of buyin strings
       const events = await driver.findElements(By.className('event_name'));
       // for each string
@@ -46,10 +47,15 @@ const getPlayerInfo = async (name, chips, options) => {
         let buyinString = await event.findElement(By.tagName('a')).getText();
         // remove the commas in the numbers
         buyinString = buyinString.replace(',', '');
-        console.log(buyinString);  // works to remove the commas
         // find the first integer in the string
+        let buyin = parseInt(buyinString.replace(/(^.+)(\w\d+\w)(.+$)/i,'$2'));
+        buyins.push(buyin);
+        console.log(buyins);
         // find average of the integers found in the loop above
       })
+
+      result['buyin'] = buyins.reduce((a,b) => a + b, 0) / buyins.length
+      console.log('buyins', buyins);
     }
   }
   console.log(`finished grabbing data for ${name}\n`, result)    
