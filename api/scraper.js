@@ -23,7 +23,7 @@ const getPlayerInfo = async (name, chips, options) => {
     return
   }
   else {
-    console.log(`found name link for ${name}`);
+    console.log(`found ${name}`);
     await names[0].findElement(By.linkText(`${name}`)).click();
     if ('earnings' in result) {
       const totalCashes = await driver.wait(until.elementLocated(By.className('player-profile-info-total-live__value'))).getText();
@@ -39,7 +39,17 @@ const getPlayerInfo = async (name, chips, options) => {
       result['nationality'] = country;
     }
     if ('buyin' in result) {
-      
+      // grab the list of buyin strings
+      const events = await driver.findElements(By.className('event_name'));
+      // for each string
+      events.forEach(async event => {
+        let buyinString = await event.findElement(By.tagName('a')).getText();
+        // remove the commas in the numbers
+        buyinString = buyinString.replace(',', '');
+        console.log(buyinString);  // works to remove the commas
+        // find the first integer in the string
+        // find average of the integers found in the loop above
+      })
     }
   }
   console.log(`finished grabbing data for ${name}\n`, result)    
