@@ -142,7 +142,7 @@ const TableDataDrop = props => {
             <td>
               <input 
                 type="text" 
-                name={`name`} 
+                name="name" 
                 placeholder={`Player ${player.seat} Name`} 
                 value={player.name}
                 onChange={(e) => handleNameChange(e, player.seat)}
@@ -151,7 +151,7 @@ const TableDataDrop = props => {
             <td>
               <input 
                 type="text" 
-                name={`chips`} 
+                name="chips"
                 placeholder={`Player ${player.seat} Chips`} 
                 value={player.chips}
                 onChange={(e) => handleChipsChange(e, player.seat)}

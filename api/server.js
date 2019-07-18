@@ -20,9 +20,12 @@ server.post('/api/table', async (req, res) => {
   // const playerArray = tableInfo.trim().split('\n');
   for (player of tableInfo) {
     const name = player.name;
-    await scraper.findPlayer(name);
+    if (name) {
+      await scraper.findPlayer(name);
+    }
   }
-  console.log('options\n', selectedOptions);
+  // console.log('options\n', selectedOptions);
+  console.log('done looping');
   res.status(200).json({tableInfo, selectedOptions});
 })
 
