@@ -123,7 +123,7 @@ const TableDataDrop = props => {
     }
 
     axios.post('http://localhost:5000/api/table', {tableInfo, selectedOptions})
-      .then(res => console.log(res))
+      .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
 

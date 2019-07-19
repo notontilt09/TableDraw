@@ -20,7 +20,8 @@ const getPlayerInfo = async (name, chips, options) => {
   const names = await driver.findElements(By.className('name'));
   if (names.length < 1) {
     console.log(`could not find ${name} in hendon mob`);
-    return
+    result['notes'] = 'Couldn\'t find info on player';
+    return result;
   }
   else {
     console.log(`found ${name}`);
@@ -66,7 +67,8 @@ const getPlayerInfo = async (name, chips, options) => {
       // console.log('buyins', buyins);
     }
   }
-  console.log(`finished grabbing data for ${name}\n`, result)    
+  console.log(`finished grabbing data for ${name}\n`, result) 
+  return result;   
 }
 
 
