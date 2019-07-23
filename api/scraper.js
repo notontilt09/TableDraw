@@ -25,7 +25,7 @@ const getPlayerInfo = async (name, chips, options) => {
   }
   else {
     console.log(`found ${name}`);
-    await names[0].findElement(By.linkText(`${name}`)).click();
+    await names[0].findElement(By.partialLinkText(`${name}`)).click();
     if ('earnings' in result) {
       const totalCashes = await driver.wait(until.elementLocated(By.className('player-profile-info-total-live__value'))).getText();
       result['earnings'] = totalCashes;
@@ -44,26 +44,20 @@ const getPlayerInfo = async (name, chips, options) => {
       // grab the list of buyin strings
       const events = await driver.findElements(By.className('event_name'));
       // for each string
-      await events.forEach(async event => {
+      for (event of events) {
         let buyinString = await event.findElement(By.tagName('a')).getText();
-        // remove the commas in the numbers
+          // remove the commas in the numbers
         buyinString = buyinString.replace(',', '');
         // console.log('no commas', buyinString)
-        // find the first integer in the string
+        // find the first integer in the string  
         let buyin = parseInt(buyinString.match(/\d+/));
         // console.log('buyin', buyin);
         buyins.push(buyin);
-      })
-
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
       }
-
-      await sleep(3000);
-      
+            
       // find average of the integers found in the buyins array
       buyins = buyins.filter(Number);
-      result['buyin'] = buyins.reduce((a,b) => a + b, 0) / buyins.length
+      result['buyin'] = Math.floor(buyins.reduce((a,b) => a + b, 0) / buyins.length)
       // console.log('buyins', buyins);
     }
   }
