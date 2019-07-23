@@ -59,7 +59,6 @@ const TableDataDrop = props => {
   // tableInfo hook.  User will copy paste table draw from pokernews here
   const [tableInfo, setTableInfo] = useState(initialTableInfo);
 
-  
   // options for how much data to grab, toggled by checkboxes in render
   const [options, setOptions] = useState({
     name: true,
@@ -70,7 +69,6 @@ const TableDataDrop = props => {
     buyin: true
   })
   
-
   // function to toggle options state called by checkbox inputs
   const toggleCheckbox = e => {
     setOptions({
@@ -123,7 +121,9 @@ const TableDataDrop = props => {
     }
 
     axios.post('http://localhost:5000/api/table', {tableInfo, selectedOptions})
-      .then(res => console.log(res.data))
+      .then(res => {
+        props.setResults(res.data.players);
+      })
       .catch(err => console.log(err))
   }
 
