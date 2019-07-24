@@ -56,7 +56,7 @@ const TableDataDrop = props => {
       chips: 0,
     }
   ]
-  // tableInfo hook.  User will copy paste table draw from pokernews here
+  // tableInfo hook.  User will copy paste table draw info from pokernews here
   const [tableInfo, setTableInfo] = useState(initialTableInfo);
 
   // options for how much data to grab, toggled by checkboxes in render
@@ -68,6 +68,9 @@ const TableDataDrop = props => {
     largest: true,
     buyin: true
   })
+
+  // error message hook.  Used to display an error to the client if the scraper fails
+  const [errorMsg, setErrorMsg] = useState('');
   
   // function to toggle options state called by checkbox inputs
   const toggleCheckbox = e => {
@@ -105,12 +108,15 @@ const TableDataDrop = props => {
   }
 
   const clearInput = () => {
-    setTableInfo(initialTableInfo)
+    setTableInfo(initialTableInfo);
+    setErrorMsg('');
+    props.setResults([]);
   }
   
 
   // function to send post request to backend with tableInfo and options
   const handleSubmit = () => {
+    setErrorMsg('');
     const selectedOptions = {}
     const keys = Object.keys(options);
     
@@ -124,7 +130,7 @@ const TableDataDrop = props => {
       .then(res => {
         props.setResults(res.data.players);
       })
-      .catch(err => console.log(err))
+      .catch(err => setErrorMsg(err.response.data.message))
   }
 
   return (
@@ -195,6 +201,9 @@ const TableDataDrop = props => {
       >
         Get My Opponent's Info!
       </button>
+      {errorMsg && 
+        <h3>{errorMsg}</h3>
+      }
     </div>
   )
 }

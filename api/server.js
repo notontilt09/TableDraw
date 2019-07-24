@@ -19,17 +19,22 @@ server.post('/api/table', async (req, res) => {
   console.log('info\n', tableInfo);
 
   const players = [];
-  for (player of tableInfo) {
-    const name = player.name;
-    const chips = player.chips;
-    if (name) {
-      const result = await scraper.getPlayerInfo(name, chips, selectedOptions);
-      players.push(result);
+  try {
+    for (player of tableInfo) {
+      const name = player.name;
+      const chips = player.chips;
+      if (name) {
+        const result = await scraper.getPlayerInfo(name, chips, selectedOptions);
+        players.push(result);
+      }
     }
+    console.log('done looping');
+    res.status(200).json({ players });
+  } catch (error) {
+    console.log('error grabbing info');
+    res.status(500).json({ success: false, message: 'Error retreiving player data.  Please check spelling of player names and try again.' });
   }
   // console.log('options\n', selectedOptions);
-  console.log('done looping');
-  res.status(200).json({ players });
 })
 
 module.exports = server;

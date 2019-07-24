@@ -25,7 +25,7 @@ const getPlayerInfo = async (name, chips, options) => {
   }
   else {
     console.log(`found ${name}`);
-    await names[0].findElement(By.partialLinkText(`${name}`)).click();
+    await names[0].findElement(By.partialLinkText(`${name.split(' ')[1]}`)).click();
     if ('earnings' in result) {
       const totalCashes = await driver.wait(until.elementLocated(By.className('player-profile-info-total-live__value'))).getText();
       result['earnings'] = totalCashes;
@@ -54,7 +54,7 @@ const getPlayerInfo = async (name, chips, options) => {
         // console.log('buyin', buyin);
         buyins.push(buyin);
       }
-            
+
       // find average of the integers found in the buyins array
       buyins = buyins.filter(Number);
       result['buyin'] = Math.floor(buyins.reduce((a,b) => a + b, 0) / buyins.length)
