@@ -23,8 +23,10 @@ server.post('/api/table', async (req, res) => {
     for (player of tableInfo) {
       const name = player.name;
       const chips = player.chips;
+      const seat = player.seat;
+
       if (name) {
-        const result = await scraper.getPlayerInfo(name, chips, selectedOptions);
+        const result = await scraper.getPlayerInfo(name, seat, chips, selectedOptions);
         players.push(result);
       }
     }

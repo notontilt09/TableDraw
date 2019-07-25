@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 import './TableDataDrop.css';
 
@@ -71,6 +72,9 @@ const TableDataDrop = props => {
 
   // error message hook.  Used to display an error to the client if the scraper fails
   const [errorMsg, setErrorMsg] = useState('');
+
+  // fetching hook.  Will display a loader-spinner if backend is fetching data
+  const [isFetching, setIsFetching] = useState(false);
   
   // function to toggle options state called by checkbox inputs
   const toggleCheckbox = e => {
@@ -117,6 +121,12 @@ const TableDataDrop = props => {
   // function to send post request to backend with tableInfo and options
   const handleSubmit = () => {
     setErrorMsg('');
+    props.setResults([]);
+
+    if (!isFetching) {
+      setIsFetching(true)
+    }
+
     const selectedOptions = {}
     const keys = Object.keys(options);
     
@@ -128,6 +138,7 @@ const TableDataDrop = props => {
 
     axios.post('http://localhost:5000/api/table', {tableInfo, selectedOptions})
       .then(res => {
+        setIsFetching(false);
         props.setResults(res.data.players);
       })
       .catch(err => setErrorMsg(err.response.data.message))
@@ -201,6 +212,17 @@ const TableDataDrop = props => {
       >
         Get My Opponent's Info!
       </button>
+      {isFetching &&
+        <>
+          <Loader 
+            type="TailSpin"
+            color="#00BFFF"
+            height="100"	
+            width="100"
+          />
+          <h3>Grabbing info on players.  Please be patient.</h3>
+        </>   
+      }
       {errorMsg && 
         <h3>{errorMsg}</h3>
       }

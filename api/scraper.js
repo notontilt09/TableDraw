@@ -3,7 +3,7 @@ require('chromedriver');
 
 const driver = new Builder().forBrowser('chrome').build();
 
-const getPlayerInfo = async (name, chips, options) => {
+const getPlayerInfo = async (name, seat, chips, options) => {
   const result = {};
   
   for (option in options) {
@@ -11,6 +11,7 @@ const getPlayerInfo = async (name, chips, options) => {
   }
 
   result['name'] = name;
+  result['seat'] = seat;
   result['chips'] = chips;
 
 
@@ -20,7 +21,7 @@ const getPlayerInfo = async (name, chips, options) => {
   const names = await driver.findElements(By.className('name'));
   if (names.length < 1) {
     console.log(`could not find ${name} in hendon mob`);
-    result['notes'] = 'Couldn\'t find info on player';
+    result['notes'] = `Couldn\'t find info on ${name}`;
     return result;
   }
   else {
